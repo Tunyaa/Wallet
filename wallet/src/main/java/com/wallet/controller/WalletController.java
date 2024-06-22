@@ -1,4 +1,3 @@
-
 package com.wallet.controller;
 
 import com.wallet.model.Wallet;
@@ -18,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/wallet")
 @AllArgsConstructor
 public class WalletController {
-    
+
     private final WalletService walletService;
-    
+
     @PostMapping
-    public void processWalletOperation(@RequestBody WalletOperationRequest request){
+    public void processWalletOperation(@RequestBody WalletOperationRequest request) {
         walletService.processWalletOperation(request.getWalletId(), request.getOperationType(), request.getAmount());
     }
-    
+
     @GetMapping("/{walletId}")
-    public Wallet getWalletById(@PathVariable UUID walletId){
+    public Wallet getWalletById(@PathVariable UUID walletId) {
         return walletService.getWAlletById(walletId);
     }
 }

@@ -10,9 +10,9 @@
     </parent>
     <groupId>com</groupId>
     <artifactId>wallet</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>app</version>
     <name>Wallet</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Wallet</description>
     <url/>
     <licenses>
         <license/>
@@ -36,10 +36,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.2.23</version>
+    </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -50,7 +50,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.4.3</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -72,6 +76,19 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-jar-plugin</artifactId>
+               <version>3.2.0</version>
+               <configuration>
+                   <archive>
+                       <manifest>
+                           <addClasspath>true</addClasspath>
+                           <mainClass>com.wallet.WalletApplication</mainClass>
+                       </manifest>
+                   </archive>
+               </configuration>
+           </plugin>
         </plugins>
     </build>
 
