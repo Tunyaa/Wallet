@@ -7,9 +7,10 @@ import java.util.UUID;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional(isolation = Isolation.SERIALIZABLE)
 public interface WalletService {
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    
     public void processWalletOperation(UUID walletId, OperationType operationType, BigDecimal amount);
 
     public Wallet getWAlletById(UUID walletId);

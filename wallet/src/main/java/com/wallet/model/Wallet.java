@@ -17,4 +17,8 @@ public class Wallet {
     @Id
     private UUID id;
     private BigDecimal balance;
+
+    public Wallet() {
+    }
+    
 }
