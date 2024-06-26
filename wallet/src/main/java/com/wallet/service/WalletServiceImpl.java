@@ -1,6 +1,7 @@
 
 package com.wallet.service;
 
+import com.wallet.DTO.WalletDTO;
 import com.wallet.model.OperationType;
 import static com.wallet.model.OperationType.DEPOSIT;
 import static com.wallet.model.OperationType.WITHDRAW;
@@ -13,8 +14,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service 
 @Data
@@ -23,7 +22,7 @@ public class WalletServiceImpl implements WalletService{
     private final WalletOperationRepository walletOperationRepository;
 
     @Override
-    public void processWalletOperation(UUID walletId, OperationType operationType, BigDecimal amount) {
+    public WalletDTO processWalletOperation(UUID walletId, OperationType operationType, BigDecimal amount) {
 
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
@@ -47,11 +46,13 @@ public class WalletServiceImpl implements WalletService{
         operation.setAmount(amount);
         operation.setTimestamp(LocalDateTime.now());
         walletOperationRepository.save(operation);
+        return new WalletDTO(walletId, wallet.getBalance());
     }
 
     @Override
-    public Wallet getWAlletById(UUID walletId) {
-        return walletRepository.findById(walletId)
+    public WalletDTO getWAlletById(UUID walletId) {
+        Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
+         return new WalletDTO(walletId, wallet.getBalance());
     }
 }

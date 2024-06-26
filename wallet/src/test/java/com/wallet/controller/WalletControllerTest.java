@@ -1,8 +1,8 @@
 package com.wallet.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wallet.DTO.WalletDTO;
 import com.wallet.model.OperationType;
-import com.wallet.model.Wallet;
 import com.wallet.model.WalletOperationRequest;
 import com.wallet.service.WalletService;
 import org.junit.jupiter.api.Test;
@@ -11,10 +11,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.math.BigDecimal;
 import java.util.UUID;
-
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,7 +29,7 @@ public class WalletControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
+    
     @Test
     void shouldProcessWalletOperation() throws Exception {
 
@@ -50,12 +48,12 @@ public class WalletControllerTest {
     void shouldGetWalletById() throws Exception {
 
         UUID walletId = UUID.randomUUID();
-        Wallet wallet = new Wallet(walletId, new BigDecimal(1000));
+        WalletDTO wallet = new WalletDTO(walletId, new BigDecimal(1000));
         when(walletService.getWAlletById(walletId)).thenReturn(wallet);
 
         mockMvc.perform(get("/api/v1/wallet/{walletId}", walletId.toString()))
                 .andExpect(status().isOk());
 
         verify(walletService, times(1)).getWAlletById(walletId);
-    }
+    }  
 }
